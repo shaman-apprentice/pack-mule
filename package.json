@@ -23,6 +23,7 @@
     "@types/jest": "^25.2.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "jest": "^25.5.2",
+    "regenerator-runtime": "^0.13.5",
     "ts-jest": "^25.4.0",
     "typescript": "^3.8.3"
   }
