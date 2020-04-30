@@ -54,6 +54,11 @@ export class PMap<K extends Object, V> implements Iterable<[K, V]> {
     return oldV;
   }
 
+  public forEach(f: (k: K, v: V) => any) {
+    for (let [key, value] of this)
+      f(key, value);
+  }
+
   *[Symbol.iterator]() {
     const storageKeys = Object.getOwnPropertySymbols(this.storage);
 
