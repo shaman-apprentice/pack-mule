@@ -1,5 +1,5 @@
 /**
- * A class providing Map functionality, which depends an objects as key
+ * A class providing some Map functionality, which depends an objects as keys
  */
 export class PMap<K extends Object, V> implements Iterable<Entry<K, V>> {
   private storageKey = Symbol();
@@ -65,6 +65,46 @@ export class PMap<K extends Object, V> implements Iterable<Entry<K, V>> {
 
   public removeAll(...keys: K[]): (V | typeof Unset)[] {
     return keys.map(k => this.remove(k));
+  }
+
+  public keys(): K[] {
+    return this.toList().map(e => e.key)
+  }
+
+  public values(): V[] {
+    return this.toList().map(e => e.value);
+  }
+
+  public toList(): Entry<K, V>[] {
+    return Array.from<Entry<K, V>>(this);
+  }
+
+  public clone(): PMap<K, V> {
+    return new PMap<K, V>(this.toList());
+  }
+
+  /**
+   * @param mergeF In case of both PMaps having the same key, this function returns the new Value. `v1` is from `this` and `v2` is from `other`
+   */
+  public union(other: PMap<K, any>, mergeF: (key: K, v1: V, v2: V) => any = (k,v1,v2) => v1): PMap<K, any> {
+    const result = this.clone();
+
+    for (let {key, value} of other)
+      result.add(key, this.has(key) ? mergeF(key, this.get(key) as V, value) : value)
+
+    return result;
+  }
+
+  public intersectionKeys(other: PMap<K, any>): K[] {
+    return this.toList()
+      .filter(entry => other.has(entry.key))
+      .map(entry => entry.key);
+  }
+
+  public difference(other: PMap<K, any>): PMap<K, V> {
+    const result = this.clone();
+    result.removeAll(...other.keys());
+    return result;
   }
 
   *[Symbol.iterator]() {

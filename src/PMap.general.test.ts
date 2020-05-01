@@ -48,3 +48,24 @@ describe('constructor', () => {
     expect(m.get(k2)).toBe(2);
   });
 });
+
+describe('clone', () => {
+  it('has the same entries', () => {
+    const k = {};
+    const m1 = new PMap([{key: k, value: 'v1'}]);
+    const m2 = m1.clone();
+
+    expect(m2.size).toBe(1);
+    expect(m2.get(k)).toBe('v1');
+  });
+
+  it('keeps the entry in the original PMap, when deleting a key from the clone', () => {
+    const k = {};
+    const m1 = new PMap([{key: k, value: 1}]);
+    const m2 = m1.clone();
+
+    m2.remove(k);
+    expect(m2.has(k)).toBe(false);
+    expect(m1.has(k)).toBe(true);
+  });
+});
