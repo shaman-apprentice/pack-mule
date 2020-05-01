@@ -1,6 +1,3 @@
-// todo move into test setup for f*** babel
-import "regenerator-runtime/runtime.js";
-
 export class PMap<K extends Object, V> implements Iterable<Entry<K, V>> {
   private storageKey = Symbol();
   private storage = {};
