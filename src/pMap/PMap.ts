@@ -6,7 +6,12 @@ export class PMap<K extends Object, V> implements Iterable<Entry<K, V>> {
   private storage = {};
   private _size = 0;
 
-  public get size() {
+  constructor(entries?: Entry<K, V>[]) {
+    if (entries)
+      this.addAll(...entries);
+  }
+
+  public get size(): number {
     return this._size
   }
 

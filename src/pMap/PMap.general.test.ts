@@ -36,3 +36,15 @@ describe('iterator', () => {
     expect(mapped).toContain('value-3');
   });
 });
+
+describe('constructor', () => {
+  it('add all entries', () => {
+    const k1 = {};
+    const k2 = {};
+    const m = new PMap([{key: k1, value: 1}, {key: k2, value: 2}]);
+
+    expect(m.size).toBe(2);
+    expect(m.get(k1)).toBe(1);
+    expect(m.get(k2)).toBe(2);
+  });
+});
