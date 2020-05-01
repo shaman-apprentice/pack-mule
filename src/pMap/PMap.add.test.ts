@@ -39,3 +39,13 @@ it('contains key/value pair, after adding it', () => {
   expect(m.has(k)).toBe(true);
   expect(m.get(k)).toBe(1);
 });
+
+it('works with `addAll`', () => {
+  const m = new PMap<Object, number>();
+  const k1 = {};
+  const k2 = {};
+  const addResult = m.addAll({key: k1, value: 1}, {key: k2, value: 2});
+
+  expect(m.size).toBe(2);
+  expect(addResult).toEqual([Unset, Unset]);
+});

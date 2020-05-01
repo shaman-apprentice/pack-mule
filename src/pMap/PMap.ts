@@ -28,6 +28,10 @@ export class PMap<K extends Object, V> implements Iterable<Entry<K, V>> {
     return Unset;
   }
 
+  public addAll(...entries: Entry<K, V>[]): (V | typeof Unset)[] {
+    return entries.map(e => this.add(e.key, e.value));
+  }
+
   public has(key: K): boolean {
     return Object.getOwnPropertySymbols(this.storage).includes(key[this.storageKey]);
   }
@@ -52,6 +56,10 @@ export class PMap<K extends Object, V> implements Iterable<Entry<K, V>> {
     this._size--;
 
     return oldV;
+  }
+
+  public removeAll(...keys: K[]): (V | typeof Unset)[] {
+    return keys.map(k => this.remove(k));
   }
 
   *[Symbol.iterator]() {

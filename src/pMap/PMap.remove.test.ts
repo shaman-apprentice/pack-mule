@@ -43,3 +43,14 @@ it('removes symbol-reference when removing entry', () => {
   m.remove(k);
   expect(Object.getOwnPropertySymbols(k).length).toBe(0);
 });
+
+it('works with `removeAll`', () => {
+  const m = new PMap<Object, number>();
+  const k1 = {};
+  const k2 = {};
+  m.addAll({key: k1, value: 1}, {key: k2, value: 2});
+  const removeResult = m.removeAll(k1, k2);
+
+  expect(m.size).toBe(0);
+  expect(removeResult).toEqual([1, 2]);
+});
