@@ -1,6 +1,8 @@
  # PMap
  A class providing some Map functionality, which depends an objects as its keys.
 
+ Install with `npm i @shaman-apprentice/pack-mule`.
+
  The **index.d.ts** types, the **jsdocs** in the code, as well as the existing **tests** in the src folder should be enough documentation. If not you are welcome to open an issue. 
 
 ## ⚠️ Note for babel
