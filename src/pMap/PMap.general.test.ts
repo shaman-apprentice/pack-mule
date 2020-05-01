@@ -19,7 +19,7 @@ describe('iterator', () => {
   it('works with "for of"-loop', () => {  
     const doSomething = jest.fn();
   
-    for (let [key, value] of m)
+    for (let {key, value} of m)
       doSomething(key, value);
   
     expect(doSomething).toHaveBeenCalledTimes(3);
@@ -28,13 +28,11 @@ describe('iterator', () => {
     expect(doSomething).toHaveBeenCalledWith(k3, 'value-3');
   });
 
-  it('wraps forEach-Method directly', () => {
-    const doSomething = jest.fn();
-    m.forEach(doSomething);
-
-    expect(doSomething).toHaveBeenCalledTimes(3);
-    expect(doSomething).toHaveBeenCalledWith(k1, 'value-1');
-    expect(doSomething).toHaveBeenCalledWith(k2, 'value-2');
-    expect(doSomething).toHaveBeenCalledWith(k3, 'value-3');
-  })
+  it('works with `Array.from`', () => {
+    const mapped = Array.from(m).map(entry => entry.value);
+    expect(mapped.length).toBe(3);
+    expect(mapped).toContain('value-1');
+    expect(mapped).toContain('value-2');
+    expect(mapped).toContain('value-3');
+  });
 });
