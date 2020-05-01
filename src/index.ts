@@ -1,5 +1,5 @@
 /**
- * A class providing some Map functionality, which depends an objects as keys
+ * A class providing some Map functionality, which depends an objects as its keys
  */
 export class PMap<K extends Object, V> implements Iterable<Entry<K, V>> {
   private storageKey = Symbol();
