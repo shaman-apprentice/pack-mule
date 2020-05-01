@@ -1,4 +1,4 @@
-import { PMap, Unset } from "./PMap";
+import { PMap, Unset } from ".";
 
 describe('get', () => {
   it('returns `Unset` if it does not has the key', () => {

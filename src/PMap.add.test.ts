@@ -1,4 +1,4 @@
-import { PMap, Unset } from "./PMap"
+import { PMap, Unset } from "."
 
 it('creates an empty PMap with size 0', () => {
   const m = new PMap();

@@ -1,4 +1,4 @@
-import { PMap, Unset } from "./PMap";
+import { PMap, Unset } from ".";
 
 it('returns `Unset` if it has not the key', () => {
   const m = new PMap();
