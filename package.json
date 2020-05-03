@@ -1,14 +1,19 @@
 {
   "name": "@shaman-apprentice/pack-mule",
-  "version": "0.0.1",
-  "description": "A Map which works with Objects as key and some utilities",
+  "version": "0.1.0",
+  "description": "A Map which works with anything as key and some utilities",
+  "keywords": [
+    "Map",
+    "Objects",
+    "Keys",
+    "Typed"
+  ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest --config config/jest.config.js",
     "build": "tsc -p config/tsconfig.json",
-    "prepublishOnly": "npm run test && npm run build",
-    "publish": "npm run publish --access=public"
+    "prepublishOnly": "npm run test && npm run build"
   },
   "repository": {
     "type": "git",
