@@ -1,7 +1,7 @@
 /**
  * A class providing some Map functionality, which depends an objects as its keys
  */
-export class PMap<K extends Object, V> implements Iterable<Entry<K, V>> {
+export class PMap<K extends object, V> implements Iterable<Entry<K, V>> {
   private storageKey = Symbol();
   private storage = {};
   private _size = 0;
