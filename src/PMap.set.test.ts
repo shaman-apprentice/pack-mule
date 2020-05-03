@@ -1,58 +1,51 @@
-import { PMap } from ".";
+import { PMap } from "./index"
 
-describe('union', () => {
-  it('adds all entries', () => {
-    const m1 = new PMap();
-    m1.add({}, 1);
-    const m2 = new PMap();
-    m2.add({}, 2);
-    
-    const m3 = m1.union(m2);
-    expect(m3.size).toBe(2);
-  });
-
-  it('handles default `mergeF` correctly', () => {
-    const commonKey = {};
-    const m1 = new PMap([{key: commonKey, value: 'm1-1'}]);
-    const m2 = new PMap([{key: commonKey, value: 'm2-1'}]);
-
-    const m3 = m1.union(m2);
-    expect(m3.size).toBe(1);
-    expect(m3.get(commonKey)).toBe('m1-1');
-  });
-
-  it('uses given `mergeF`', () => {
-    const commonKey = {};
-    const m1 = new PMap([{key: commonKey, value: 'm1-1'}]);
-    const m2 = new PMap([{key: commonKey, value: 'm2-1'}]);
-    const mergeF = jest.fn((key, v1, v2) => 'm2+m1-1');
-
-    const m3 = m1.union(m2, mergeF);
-    expect(m3.size).toBe(1);
-    expect(mergeF).toHaveBeenCalledTimes(1);
-    expect(mergeF).toHaveBeenCalledWith(commonKey, 'm1-1', 'm2-1');
-    expect(m3.get(commonKey)).toBe('m2+m1-1');
-  });
+it('creates an empty PMap with size 0', () => {
+  const m = new PMap();
+  expect(m.size).toBe(0);
 });
 
-describe('intersectionKeys', () => {
-  it('intersectionKeys works', () => {
-    const commonKey = {};
-    const m1 = new PMap([{key: commonKey, value: 1}, {key: {}, value: 2}]);
-    const m2 = new PMap([{key: commonKey, value: 1}, {key: {}, value: 3}]);
-  
-    expect(m1.intersectionKeys(m2)).toEqual([commonKey]);
-  });
+it('has size 2 after setting 2 different keys', () => {
+  const m = new PMap();
+  m.set({}, 1);
+  m.set({}, 2);
+  expect(m.size).toBe(2);
 });
 
-describe('difference', () => {
-  it('difference works', () => {
-    const commonKey = {};
-    const m1UniqueKey = {};
-    const m1 = new PMap([{key: commonKey, value: 1}, {key: m1UniqueKey, value: 2}]);
-    const m2 = new PMap([{key: commonKey, value: 1}, {key: {}, value: 3}]);
-  
-    const difference = m1.difference(m2);
-    expect(difference.toList()).toEqual([{key: m1UniqueKey, value: 2}]);
-  });
+it('has size 1 after setting twice the same key', () => {
+  const m = new PMap();
+  const k = {};
+  m.set(k, 1);
+  m.set(k, 2);
+  expect(m.size).toBe(1);
+});
+
+it('returns `undefined` when setting a new key', () => {
+  const m = new PMap();
+  expect(m.set({}, 1)).toBe(undefined);
+});
+
+it('returns old Value when updating a key', () => {
+  const m = new PMap();
+  const k = {};
+  m.set(k, 1);
+  expect(m.set(k, 2)).toBe(1);
+});
+
+it('contains key/value pair, after setting it', () => {
+  const m = new PMap();
+  const k = {};
+  m.set(k, 1);
+  expect(m.has(k)).toBe(true);
+  expect(m.get(k)).toBe(1);
+});
+
+it('works with `setAll`', () => {
+  const m = new PMap<Object, number>();
+  const k1 = {};
+  const k2 = {};
+  const setResult = m.setAll({key: k1, value: 1}, {key: k2, value: 2});
+
+  expect(m.size).toBe(2);
+  expect(setResult).toEqual([undefined, undefined]);
 });
