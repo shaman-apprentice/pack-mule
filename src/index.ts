@@ -7,17 +7,13 @@ import { isObjectLike } from './utilities';
 export class PMap<K, V> implements Iterable<Entry<K, V>> {
   private _storageKey = Symbol();
   private _storage = {};
-  private _uniqueSymbolDescription;
 
-  /** @param uniqueSymbolDescription in case you use symbols as keys, you must not use a symbol description with the value of `uniqueSymbolDescription`. */
-  constructor(entries?: Entry<K, V>[], uniqueSymbolDescription = 'PMap-very-unique') {
-    this._uniqueSymbolDescription = uniqueSymbolDescription;
-
+  constructor(entries?: Entry<K, V>[]) {
     if (entries)
       this.setAll(...entries);
   }
 
-  /** returns the amount of values stored not equal to `undefined`. */
+  /** returns the amount of key-value pairs stored not equal to `undefined`. */
   public get size(): number {
     return this.toList().filter(e => e.value !== undefined).length;
   }
@@ -40,12 +36,11 @@ export class PMap<K, V> implements Iterable<Entry<K, V>> {
   }
 
   public get(key: K): V {
-    if (isObjectLike(key)) {
-      const storageKey = key[this._storageKey];
-      return this._storage[storageKey]?.value;
-    }
+    if (isObjectLike(key) && key[this._storageKey] === undefined)
+      return undefined;
 
-    return this._storage[key as any];
+    const storageKey = isObjectLike(key) ? key[this._storageKey] : key;
+    return this._storage[storageKey as any]?.value;
   } 
 
   public remove(key: K): V {
@@ -102,9 +97,7 @@ export class PMap<K, V> implements Iterable<Entry<K, V>> {
     const storageSymbols = Object.getOwnPropertySymbols(this._storage);
     while (storageSymbols.length > 0) {
       const storageKey = storageSymbols.pop();
-      yield (storageKey as any).description === this._uniqueSymbolDescription
-        ? this._storage[storageKey]
-        : { key: storageKey, value: this._storage[storageKey] }    ;    
+      yield this._storage[storageKey];
     }
 
     const storageKeys = Object.keys(this._storage);
@@ -123,7 +116,7 @@ export class PMap<K, V> implements Iterable<Entry<K, V>> {
       return oldV;
     }
 
-    const newStorageKey = Symbol(this._uniqueSymbolDescription);
+    const newStorageKey = Symbol();
     key[this._storageKey] = newStorageKey;
     this._storage[newStorageKey] = { key, value };
 
@@ -131,8 +124,13 @@ export class PMap<K, V> implements Iterable<Entry<K, V>> {
   }
 
   private _setPrimitiveLike(key: any, value: V) {
-    const oldV = this._storage[key];
-    this._storage[key] = value;
+    const entry = this._storage[key] ?? {};
+    const oldV = entry.value
+
+    entry.key = key;
+    entry.value = value
+    this._storage[key] = entry;
+
     return oldV;
   }
 
@@ -147,7 +145,7 @@ export class PMap<K, V> implements Iterable<Entry<K, V>> {
   }
 }
 
-interface Entry<K, V> {
+export interface Entry<K, V> {
   key: K,
   value: V,
 }

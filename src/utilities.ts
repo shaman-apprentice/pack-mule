@@ -9,6 +9,5 @@ export const isObjectLike = (o: any): boolean => {
     return false;
 
   const oType = typeof o;
-
   return oType === 'object' || oType === 'function';
 }
