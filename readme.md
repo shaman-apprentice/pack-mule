@@ -9,7 +9,7 @@ Storing keys and values in two separate lists and mapping them over the index, w
 - All operations like `get` or `remove` in **O(n)**
 
 ## API
-[Typedoc generated docs](docs/classes/pmap.html).
+[Typedoc generated docs](https://shaman-apprentice.github.io/pack-mule/classes/pmap.html).
 
 ## ⚠️ Note for babel
 In case you use babel for further transpiling you might need to add [regenerator-runtime](https://www.npmjs.com/package/regenerator-runtime) and [transform-class-properties](https://www.npmjs.com/package/babel-plugin-transform-class-properties) in addition to [@babel/preset-env](https://www.npmjs.com/package/@babel/preset-env).
