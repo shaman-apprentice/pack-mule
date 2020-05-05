@@ -12,8 +12,9 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest --config config/jest.config.js",
-    "build": "tsc -p config/tsconfig.json",
-    "prepublishOnly": "npm run test && npm run build"
+    "build": "rimraf dist && tsc -p config/tsconfig.json",
+    "build-docs": "rimraf docs && npx typedoc --options config/typedoc.js",
+    "prepublishOnly": "npm run test && npm run build && npm run build-docs"
   },
   "repository": {
     "type": "git",
@@ -28,7 +29,9 @@
   "devDependencies": {
     "@types/jest": "^25.2.1",
     "jest": "^25.5.2",
+    "rimraf": "^3.0.2",
     "ts-jest": "^25.4.0",
+    "typedoc": "^0.17.6",
     "typescript": "^3.8.3"
   }
 }
