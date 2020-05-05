@@ -2,28 +2,35 @@ import { isObjectLike } from './utilities';
 
 /**
  * A generic class providing some Map functionality, which allows primitives and objects as its keys.
+ * 
  * Note that a key is assumed to be not present, if it stores the value `undefined`. 
+ * 
+ * @template K type of PMap's keys
+ * @template V type of PMap's values
  */
 export class PMap<K, V> implements Iterable<Entry<K, V>> {
   private _storageKey = Symbol();
   private _storage = {};
 
+  /** @param entries All entries will be added to the new created PMap. */
   constructor(entries?: Entry<K, V>[]) {
     if (entries)
       this.setAll(...entries);
   }
 
-  /** returns the amount of key-value pairs stored not equal to `undefined`. */
+  /** Returns the amount of key-value pairs stored not equal to `undefined`. */
   public get size(): number {
     return this.toList().filter(e => e.value !== undefined).length;
   }
 
+  /** Returns the previous under `key` stored value. */
   public set(key: K, value: V): V {
     return isObjectLike(key)
       ? this._setObjectLike(key, value)
       : this._setPrimitiveLike(key, value);
   }
 
+  /** Returns the previous under `entry.key` stored values. */
   public setAll(...entries: Entry<K, V>[]): V[] {
     return entries.map(e => this.set(e.key, e.value));
   }
@@ -43,12 +50,14 @@ export class PMap<K, V> implements Iterable<Entry<K, V>> {
     return this._storage[storageKey as any]?.value;
   } 
 
+  /** Returns the previous stored value. */
   public remove(key: K): V {
     const oldV = this.get(key);
     this._deleteKey(key);
     return oldV;
   }
 
+  /** Returns the previous stored values. */
   public removeAll(...keys: K[]): V[] {
     return keys.map(k => this.remove(k));
   }
@@ -65,11 +74,13 @@ export class PMap<K, V> implements Iterable<Entry<K, V>> {
     return Array.from<Entry<K, V>>(this);
   }
 
+  /** Returns a shallow clone. */
   public clone(): PMap<K, V> {
     return new PMap<K, V>(this.toList());
   }
 
   /**
+   * Returns a shallow clone containing all key-value pairs of `this` and `other`.
    * @param mergeF In case of both PMaps having the same key, this function returns the new Value. `v1` is from `this` and `v2` is from `other`
    */
   public union(other: PMap<K, any>, mergeF: (key: K, v1: V, v2: any) => any = (k,v1,v2) => v1): PMap<K, any> {
@@ -87,12 +98,14 @@ export class PMap<K, V> implements Iterable<Entry<K, V>> {
       .map(entry => entry.key);
   }
 
+  /** Returns a shallow clone without the keys of `other`. */
   public difference(other: PMap<K, any>): PMap<K, V> {
     const result = this.clone();
     result.removeAll(...other.keys());
     return result;
   }
 
+  /** @ignore (hide from typedoc) */
   *[Symbol.iterator]() {
     const storageSymbols = Object.getOwnPropertySymbols(this._storage);
     while (storageSymbols.length > 0) {
