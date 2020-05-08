@@ -1,9 +1,7 @@
-import { isObjectLike } from './utilities';
+import { isObjectLike, primitive2Key } from './utilities';
 
 /**
  * A generic class providing some Map functionality, which allows primitives and objects as its keys.
- * 
- * Note that a key is assumed to be not present, if it stores the value `undefined`. 
  * 
  * @template K type of PMap's keys
  * @template V type of PMap's values
@@ -18,9 +16,9 @@ export class PMap<K, V> implements Iterable<Entry<K, V>> {
       this.setAll(...entries);
   }
 
-  /** Returns the amount of key-value pairs stored not equal to `undefined`. */
+  /** Returns the amount of key-value pairs stored. */
   public get size(): number {
-    return this.toList().filter(e => e.value !== undefined).length;
+    return this.toList().length;
   }
 
   /** Returns the previous under `key` stored value. */
@@ -35,19 +33,16 @@ export class PMap<K, V> implements Iterable<Entry<K, V>> {
     return entries.map(e => this.set(e.key, e.value));
   }
 
-  /** Note that a key is assumed to be not present, if it stores the value `undefined`. */
   public has(key: K): boolean {
-    return isObjectLike(key)
-      ? key[this._storageKey] !== undefined && this._storage[key[this._storageKey]] !== undefined
-      : this._storage.hasOwnProperty(key as any);
+    const entry = isObjectLike(key)
+      ? this._storage[key[this._storageKey]]
+      : this._storage[primitive2Key(key)];
+    return entry !== undefined;
   }
 
   public get(key: K): V {
-    if (isObjectLike(key) && key[this._storageKey] === undefined)
-      return undefined;
-
-    const storageKey = isObjectLike(key) ? key[this._storageKey] : key;
-    return this._storage[storageKey as any]?.value;
+    const storageKey = isObjectLike(key) ? key[this._storageKey] : primitive2Key(key);
+    return this._storage[storageKey]?.value;
   } 
 
   /** Returns the previous stored value. */
@@ -105,19 +100,15 @@ export class PMap<K, V> implements Iterable<Entry<K, V>> {
     return result;
   }
 
-  /** @ignore (hide from typedoc) */
+  /** @ignore (hide from typedoc as the interface already tells the story) */
   *[Symbol.iterator]() {
-    const storageSymbols = Object.getOwnPropertySymbols(this._storage);
-    while (storageSymbols.length > 0) {
-      const storageKey = storageSymbols.pop();
-      yield this._storage[storageKey];
-    }
+    const keys = [
+      ...Object.getOwnPropertySymbols(this._storage),
+      ...Object.keys(this._storage),
+    ];
 
-    const storageKeys = Object.keys(this._storage);
-    while (storageKeys.length > 0) {
-      const storageKey = storageKeys.pop();
-      yield { key: storageKey, value: this._storage[storageKey] };
-    }
+    while (keys.length > 0)
+      yield this._storage[keys.pop()];
   }
 
   private _setObjectLike(key: K, value: V) {
@@ -137,12 +128,12 @@ export class PMap<K, V> implements Iterable<Entry<K, V>> {
   }
 
   private _setPrimitiveLike(key: any, value: V) {
-    const entry = this._storage[key] ?? {};
+    const entry = this._storage[primitive2Key(key)] ?? {};
     const oldV = entry.value
 
     entry.key = key;
-    entry.value = value
-    this._storage[key] = entry;
+    entry.value = value;
+    this._storage[primitive2Key(key)] = entry;
 
     return oldV;
   }
@@ -153,7 +144,7 @@ export class PMap<K, V> implements Iterable<Entry<K, V>> {
       delete this._storage[storageKey];
       delete key[this._storageKey];
     } else {
-      delete this._storage[key as any];
+      delete this._storage[primitive2Key(key)];
     }
   }
 }

@@ -11,6 +11,14 @@ describe('get', () => {
     m.set(undefined, 'yolo');
     expect(m.get({})).toBe(undefined);
   });
+
+  it('can distinguish the keys `1` and "1"', () => {
+    const m = new PMap();
+    m.set(1, 'number');
+    m.set('1', 'string');
+    expect(m.get(1)).toBe('number');
+    expect(m.get('1')).toBe('string');
+  });
 });
 
 describe('iterator', () => {
@@ -40,6 +48,16 @@ describe('iterator', () => {
     expect(mapped).toContain('value-1');
     expect(mapped).toContain('value-2');
     expect(mapped).toContain('value-3');
+  });
+
+  it('can handle `.values()` with number as key', () => {
+    const m = new PMap<number, string>([{ key: 1, value: 'one'}]);
+    expect(m.values()).toEqual(['one']);
+  });
+
+  it('can handle `.keys()` with number as key', () => {
+    const m = new PMap<number, string>([{ key: 1, value: 'one'}]);
+    expect(m.keys()).toEqual([1]);
   });
 });
 

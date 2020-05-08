@@ -35,5 +35,29 @@ describe('primitives', () => {
     expect(m.get('1')).toBe('one');
     expect(m.get('2')).toBe('two');
   });
+
+  it('has the key, when the key is a number', () => {
+    const m = new PMap([{ key: 1, value: 1}]);
+    expect(m.has(1)).toBe(true);
+  });
 });
 
+describe('handling of undefined and null', () => {
+  it('distinguishes the keys `undefined` and `"undefined"`', () => {
+    const m = new PMap();
+    m.set(undefined, 1);
+    m.set('undefined', 2);
+
+    expect(m.get(undefined)).toBe(1);
+    expect(m.get('undefined')).toBe(2);
+  });
+
+  it('distinguishes the keys `null` and `"null"`', () => {
+    const m = new PMap();
+    m.set(null, 1);
+    m.set('null', 2);
+
+    expect(m.get(null)).toBe(1);
+    expect(m.get('null')).toBe(2);
+  });
+});

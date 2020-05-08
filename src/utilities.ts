@@ -11,3 +11,9 @@ export const isObjectLike = (o: any): boolean => {
   const oType = typeof o;
   return oType === 'object' || oType === 'function';
 }
+
+/** Used to distinguish between the key `1` and the key `"1"` */
+export const primitive2Key = (x: any): string | symbol => {
+  const type = typeof x;
+  return type === 'symbol' ? x : x + type;
+}
