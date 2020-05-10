@@ -44,6 +44,7 @@ export class SymbolPMap<K extends object, V> extends PMap<K, V> {
 
   protected _deleteKey(key: any): void {
     const referenceKey = key[this._keySymbol];
+    delete key[this._keySymbol];
     delete this._storage[referenceKey];
   }
 }

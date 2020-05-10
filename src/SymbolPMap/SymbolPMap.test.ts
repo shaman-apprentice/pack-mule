@@ -23,6 +23,14 @@ it('removes the key-value pair', () => {
   expect(map.get(k)).toBe(undefined);
 });
 
+it('removes symbol-reference when removing entry', () => {
+  const m = new SymbolPMap();
+  const k = {};
+  m.set(k, 1);
+  m.remove(k);
+  expect(Object.getOwnPropertySymbols(k).length).toBe(0);
+});
+
 it('overwrites a key when setting it again', () => {
   const map = new SymbolPMap();
   const k = {};
