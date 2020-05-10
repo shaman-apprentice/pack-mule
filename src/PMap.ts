@@ -18,7 +18,7 @@ export abstract class PMap<K, V> implements Iterable<IEntry<K, V>> {
   public abstract set(key: K, value: V): V;
   
   /** Called within `this.remove` */
-  protected abstract _deleteKey(key): void;
+  protected abstract _deleteKey(key: K): void;
   
   /** Returns the amount of key-value pairs stored. */
   public get size(): number {
