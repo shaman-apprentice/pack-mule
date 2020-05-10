@@ -1,4 +1,4 @@
-import { PrimitivePMap } from "./PrimitivePMap"
+import { PrimitivePMap } from './PrimitivePMap';
 
 it('has the key after setting it', () => {
   const map = new PrimitivePMap();
