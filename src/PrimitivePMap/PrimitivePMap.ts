@@ -1,9 +1,16 @@
 import { PMap } from '../PMap';
 import { Primitive, primitive2Key } from '../utilities/utilities';
+import { IEntry } from '../IEntry';
 
 /** Can use Primitives := undefined | null | string | number | symbol as keys */
 export class PrimitivePMap<K extends Primitive, V> extends PMap<K, V> {
   private _storage = {};
+
+  constructor(entries?: IEntry<K, V>[]) {
+    super();
+    if (entries)
+      this.setAll(...entries);
+  }
 
   *[Symbol.iterator]() {
     const internKeys = Object.keys(this._storage);

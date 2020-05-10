@@ -7,12 +7,6 @@ import { IEntry } from "./IEntry";
  * @template V type of PMap's values
  */
 export abstract class PMap<K, V> implements Iterable<IEntry<K, V>> {
-
-  /** @param entries All entries will be added to the new created PMap. */
-  constructor(entries?: IEntry<K, V>[]) {
-    if (entries)
-      this.setAll(...entries);
-  }
   
   abstract [Symbol.iterator]();
   
@@ -62,7 +56,10 @@ export abstract class PMap<K, V> implements Iterable<IEntry<K, V>> {
 
   /** Returns a shallow clone. */
   public clone(): this {
-    return this.constructor(this.toList());
+    // @ts-ignore
+    const clone = new this.constructor();
+    clone.setAll(...this.toList());
+    return clone;
   }
 
   /**

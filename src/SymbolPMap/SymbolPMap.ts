@@ -1,4 +1,5 @@
 import { PMap } from '../PMap';
+import { IEntry } from '../IEntry';
 
 /**
  * Can use Objects and functions as keys.
@@ -10,6 +11,12 @@ import { PMap } from '../PMap';
 export class SymbolPMap<K extends object, V> extends PMap<K, V> {
   private _storage = {};
   private _keySymbol = Symbol();
+
+  constructor(entries?: IEntry<K, V>[]) {
+    super();
+    if (entries)
+      this.setAll(...entries);
+  }
 
   *[Symbol.iterator]() {
     const internalKeys = Object.getOwnPropertySymbols(this._storage);

@@ -94,3 +94,9 @@ it('works with symbols', () => {
   expect(map.get(k1)).toBe(1);
   expect(map.get(k2)).toBe(2);
 });
+
+it('sets all entries in the constructor', () => {
+  const map = new PrimitivePMap([{key: 1, value: 'one'}]);
+  expect(map.size).toBe(1);
+  expect(map.get(1)).toBe('one');
+});
