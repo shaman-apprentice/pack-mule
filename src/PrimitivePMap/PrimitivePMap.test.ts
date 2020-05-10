@@ -83,3 +83,14 @@ it('can distinguish the keys `null` and `"null"`', () => {
   expect(map.get(null)).toBe('fst');
   expect(map.get('null')).toBe('snd');
 });
+
+it('works with symbols', () => {
+  const map = new PrimitivePMap();
+  const k1 = Symbol();
+  const k2 = Symbol();
+  map.set(k1, 1);
+  map.set(k2, 2);
+
+  expect(map.get(k1)).toBe(1);
+  expect(map.get(k2)).toBe(2);
+});

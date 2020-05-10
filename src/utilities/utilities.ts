@@ -15,5 +15,13 @@ export const isObjectLike = (o: any): boolean => {
 export type Primitive = undefined | null | string | number | symbol;
 
 /** Used e.g. to distinguish between the key `1` and the key `"1"` or the key `undefined` and `"undefined"` */
-export const primitive2Key = (x: any): string | symbol =>
-  typeof x === 'string' ? '_' + x : String(x);
+export const primitive2Key = (x: any): string | symbol => {
+  switch (typeof x) {
+    case 'symbol':
+      return x;
+    case 'string':
+      return '_' + x;
+    default:
+      return String(x);
+  }
+}
