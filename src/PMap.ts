@@ -61,7 +61,7 @@ export abstract class PMap<K, V> implements Iterable<IEntry<K, V>> {
   }
 
   /** Returns a shallow clone. */
-  public clone(): PMap<K, V> {
+  public clone(): this {
     return this.constructor(this.toList());
   }
 
