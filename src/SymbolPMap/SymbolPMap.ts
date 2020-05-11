@@ -29,9 +29,8 @@ export class SymbolPMap<K extends object, V> extends PMap<K, V> {
   }
 
   *[Symbol.iterator]() {
-    const internalKeys = Object.getOwnPropertySymbols(this._storage);
-    while (internalKeys.length > 0)
-      yield this._storage[internalKeys.pop()];
+    for (const internalKey of Object.getOwnPropertySymbols(this._storage))
+      yield this._storage[internalKey];
   }
 
   public has(key: K): boolean {

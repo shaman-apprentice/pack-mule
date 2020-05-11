@@ -13,9 +13,8 @@ export class PrimitivePMap<K extends Primitive, V> extends PMap<K, V> {
   }
 
   *[Symbol.iterator]() {
-    const internKeys = Object.keys(this._storage);
-    while(internKeys.length > 0)
-      yield this._storage[internKeys.pop()];
+    for (const entry of Object.values(this._storage))
+      yield entry as IEntry<K, V>;
   }
 
   public has(key: K): boolean {

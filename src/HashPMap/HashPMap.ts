@@ -16,9 +16,8 @@ export class HashPMap<K extends IHashable, V> extends PMap<K, V> {
   }
 
   *[Symbol.iterator]() {
-    const internalKeys = Object.keys(this._storage);
-    while (internalKeys.length > 0)
-      yield this._storage[internalKeys.pop()];
+    for (const entry of Object.values(this._storage))
+      yield entry as IEntry<K, V>;
   }
 
   public has(key: K): boolean {
