@@ -2,11 +2,21 @@ import { PMap } from '../PMap';
 import { IEntry } from '../IEntry';
 
 /**
- * Can use Objects and functions as keys.
+ * Can use Objects and functions as keys. The keys work by reference, meaning:
+ * ```ts
+ * const map = new SymbolPMap<object, string>();
+ * const k = {};
+ * map.set(k, 'some value');
+ * map.has(k); // true
+ * map.has({}); // false
+ * ```
  * 
- * It makes it work through adding (and removing in case of removal of this PMaP) a Symbol to the key object.
- * This does not affect the normal behavior of your key object like e.g. `Object.keys(key)`.
- * [Here is a nice and easy to read article about Symbols](https://www.keithcirkel.co.uk/metaprogramming-in-es6-symbols), if you are interested in learning more about them.
+ * If you want to utilise the key value-like see {@link HashMap}.
+ * 
+ * SymbolPMap makes it work internally through adding (and removing in case of removal) a Symbol to the key object.
+ * This does not affect the normal behavior of your key like e.g. in `Object.keys(key)`.
+ * [Here is a nice and easy to read article about Symbols](https://www.keithcirkel.co.uk/metaprogramming-in-es6-symbols),
+ * if you are interested in learning more about Symbols.
  */
 export class SymbolPMap<K extends object, V> extends PMap<K, V> {
   private _storage = {};
