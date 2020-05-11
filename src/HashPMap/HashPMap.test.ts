@@ -19,11 +19,11 @@ it('can get the value after setting it', () => {
   expect(map.get(k)).toBe(1);
 });
 
-it('can remove a key-value pair', () => {
+it('can delete a key-value pair', () => {
   const map = new HashPMap(MyKey.hash);
   const k = new MyKey('k');
   map.set(k, 1);
-  map.remove(k);
+  map.delete(k);
   expect(map.has(k)).toBe(false);
   expect(map.get(k)).toBe(undefined);
 });

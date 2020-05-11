@@ -14,20 +14,20 @@ it('gets the value after setting it', () => {
   expect(map.get(k)).toBe(1);
 });
 
-it('removes the key-value pair', () => {
+it('deletes the key-value pair', () => {
   const map = new SymbolPMap();
   const k = {};
   map.set(k, 1);
-  map.remove(k);
+  map.delete(k);
   expect(map.has(k)).toBe(false);
   expect(map.get(k)).toBe(undefined);
 });
 
-it('removes symbol-reference when removing entry', () => {
+it('deletes symbol-reference when removing entry', () => {
   const m = new SymbolPMap();
   const k = {};
   m.set(k, 1);
-  m.remove(k);
+  m.delete(k);
   expect(Object.getOwnPropertySymbols(k).length).toBe(0);
 });
 
@@ -68,7 +68,7 @@ it('works with functions', () => {
   expect(map.has(k)).toBe(true);
   expect(map.get(k)).toBe(1);
 
-  map.remove(k);
+  map.delete(k);
   expect(map.has(k)).toBe(false);
   expect(map.get(k)).toBe(undefined);
 });
@@ -81,7 +81,7 @@ it('works with anonymous functions', () => {
   expect(map.has(k)).toBe(true);
   expect(map.get(k)).toBe(1);
 
-  map.remove(k);
+  map.delete(k);
   expect(map.has(k)).toBe(false);
   expect(map.get(k)).toBe(undefined);
 });

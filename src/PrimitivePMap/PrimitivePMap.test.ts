@@ -12,10 +12,10 @@ it('gets the value after setting it', () => {
   expect(map.get('k')).toBe(1);
 });
 
-it('removes the key-value pair', () => {
+it('deletes the key-value pair', () => {
   const map = new PrimitivePMap();
   map.set('k', 1);
-  map.remove('k');
+  map.delete('k');
   expect(map.has('k')).toBe(false);
   expect(map.get('k')).toBe(undefined);
 });

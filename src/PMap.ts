@@ -17,7 +17,7 @@ export abstract class PMap<K, V> implements Iterable<IEntry<K, V>> {
   /** Returns the previous under `key` stored value. */
   public abstract set(key: K, value: V): V;
   
-  /** Called within `this.remove` */
+  /** Called within `this.delete` */
   protected abstract _deleteKey(key: K): void;
   
   /** Returns the amount of key-value pairs stored. */
@@ -26,7 +26,7 @@ export abstract class PMap<K, V> implements Iterable<IEntry<K, V>> {
   }
 
   /** Returns the previous stored value. */
-  public remove(key: K): V {
+  public delete(key: K): V {
     const oldValue = this.get(key);
     this._deleteKey(key);
     return oldValue;
@@ -38,8 +38,8 @@ export abstract class PMap<K, V> implements Iterable<IEntry<K, V>> {
   }
 
   /** Returns the previous stored values. */
-  public removeAll(...keys: K[]): V[] {
-    return keys.map(k => this.remove(k));
+  public deleteAll(...keys: K[]): V[] {
+    return keys.map(k => this.delete(k));
   }
 
   public keys(): K[] {
@@ -84,7 +84,7 @@ export abstract class PMap<K, V> implements Iterable<IEntry<K, V>> {
   /** Returns a shallow clone without the keys of `other`. */
   public difference(other: PMap<K, any>): PMap<K, V> {
     const result = this.clone();
-    result.removeAll(...other.keys());
+    result.deleteAll(...other.keys());
     return result;
   }
 }

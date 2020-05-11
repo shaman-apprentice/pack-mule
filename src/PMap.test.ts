@@ -38,7 +38,7 @@ describe('`clone()`', () => {
     expect(clone.get(k)).toBe('not v');
     expect(origin.get(k)).toBe(v);
 
-    origin.remove(k);
+    origin.delete(k);
     expect(clone.has(k)).toBe(true);
   });
 });
@@ -66,12 +66,12 @@ describe('utility functions of PMap', () => {
     expect(values).toContain('2');
   });
 
-  it('can remove all entries', () => {
+  it('can delete all entries', () => {
     const map = new PrimitivePMap();
     map.set(1, '1');
     map.set(2, '2');
 
-    map.removeAll(1, 2);
+    map.deleteAll(1, 2);
     expect(map.size).toBe(0);
   });
 
