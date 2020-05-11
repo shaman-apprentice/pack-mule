@@ -13,10 +13,13 @@ import { IEntry } from '../IEntry';
  * 
  * If you want the behavior of the key to be value-like see {@link HashPMap}.
  * 
- * SymbolPMap makes it work internally through adding (and removing in case of removal) a Symbol to the key object.
+ * `SymbolPMap` makes it work internally through adding (and removing in case of removal) a Symbol to the key object.
  * This does not affect the normal behavior of your key like e.g. in `Object.keys(key)`.
  * [Here is a nice and easy to read article about Symbols](https://www.keithcirkel.co.uk/metaprogramming-in-es6-symbols),
  * if you are interested in learning more about Symbols.
+ * 
+ * @template K type of keys
+ * @template V type of values 
  */
 export class SymbolPMap<K extends object, V> extends PMap<K, V> {
   private _storage = {};

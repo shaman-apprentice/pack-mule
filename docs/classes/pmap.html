@@ -84,13 +84,13 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="pmap.html#_symbol_iterator_" class="tsd-kind-icon">[<wbr>Symbol.iterator]</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="pmap.html#_deletekey" class="tsd-kind-icon">_delete<wbr>Key</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="pmap.html#clone" class="tsd-kind-icon">clone</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="pmap.html#delete" class="tsd-kind-icon">delete</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="pmap.html#deleteall" class="tsd-kind-icon">delete<wbr>All</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="pmap.html#difference" class="tsd-kind-icon">difference</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="pmap.html#get" class="tsd-kind-icon">get</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="pmap.html#has" class="tsd-kind-icon">has</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="pmap.html#intersectionkeys" class="tsd-kind-icon">intersection<wbr>Keys</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="pmap.html#keys" class="tsd-kind-icon">keys</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="pmap.html#remove" class="tsd-kind-icon">remove</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="pmap.html#removeall" class="tsd-kind-icon">remove<wbr>All</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="pmap.html#set" class="tsd-kind-icon">set</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="pmap.html#setall" class="tsd-kind-icon">set<wbr>All</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="pmap.html#tolist" class="tsd-kind-icon">to<wbr>List</a></li>
@@ -113,7 +113,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/73f9152/src/PMap.ts#L24">PMap.ts:24</a></li>
+									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/45f72c0/src/PMap.ts#L24">PMap.ts:24</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -138,7 +138,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/73f9152/src/PMap.ts#L11">PMap.ts:11</a></li>
+									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/45f72c0/src/PMap.ts#L11">PMap.ts:11</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
@@ -155,12 +155,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/73f9152/src/PMap.ts#L21">PMap.ts:21</a></li>
+									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/45f72c0/src/PMap.ts#L21">PMap.ts:21</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Called within <code>this.remove</code></p>
+									<p>Called within <code>this.delete</code></p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -183,7 +183,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/73f9152/src/PMap.ts#L58">PMap.ts:58</a></li>
+									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/45f72c0/src/PMap.ts#L58">PMap.ts:58</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -192,6 +192,62 @@
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="delete" class="tsd-anchor"></a>
+					<h3>delete</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">delete<span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">V</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/45f72c0/src/PMap.ts#L29">PMap.ts:29</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the previous stored value.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>key: <span class="tsd-signature-type">K</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">V</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="deleteall" class="tsd-anchor"></a>
+					<h3>delete<wbr>All</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">delete<wbr>All<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>keys<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">[]</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/45f72c0/src/PMap.ts#L41">PMap.ts:41</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the previous stored values.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>keys: <span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">[]</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -205,7 +261,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/73f9152/src/PMap.ts#L85">PMap.ts:85</a></li>
+									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/45f72c0/src/PMap.ts#L85">PMap.ts:85</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -233,7 +289,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/73f9152/src/PMap.ts#L15">PMap.ts:15</a></li>
+									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/45f72c0/src/PMap.ts#L15">PMap.ts:15</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -256,7 +312,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/73f9152/src/PMap.ts#L13">PMap.ts:13</a></li>
+									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/45f72c0/src/PMap.ts#L13">PMap.ts:13</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -279,7 +335,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/73f9152/src/PMap.ts#L78">PMap.ts:78</a></li>
+									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/45f72c0/src/PMap.ts#L78">PMap.ts:78</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -302,66 +358,10 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/73f9152/src/PMap.ts#L45">PMap.ts:45</a></li>
+									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/45f72c0/src/PMap.ts#L45">PMap.ts:45</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">[]</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="remove" class="tsd-anchor"></a>
-					<h3>remove</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">remove<span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">V</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/73f9152/src/PMap.ts#L29">PMap.ts:29</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Returns the previous stored value.</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>key: <span class="tsd-signature-type">K</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">V</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="removeall" class="tsd-anchor"></a>
-					<h3>remove<wbr>All</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">remove<wbr>All<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>keys<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">[]</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/73f9152/src/PMap.ts#L41">PMap.ts:41</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Returns the previous stored values.</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>keys: <span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">[]</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">[]</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -375,7 +375,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/73f9152/src/PMap.ts#L18">PMap.ts:18</a></li>
+									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/45f72c0/src/PMap.ts#L18">PMap.ts:18</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -406,7 +406,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/73f9152/src/PMap.ts#L36">PMap.ts:36</a></li>
+									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/45f72c0/src/PMap.ts#L36">PMap.ts:36</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -434,7 +434,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/73f9152/src/PMap.ts#L53">PMap.ts:53</a></li>
+									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/45f72c0/src/PMap.ts#L53">PMap.ts:53</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/ientry.html" class="tsd-signature-type">IEntry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></h4>
@@ -451,7 +451,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/73f9152/src/PMap.ts#L69">PMap.ts:69</a></li>
+									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/45f72c0/src/PMap.ts#L69">PMap.ts:69</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -509,7 +509,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/73f9152/src/PMap.ts#L49">PMap.ts:49</a></li>
+									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/45f72c0/src/PMap.ts#L49">PMap.ts:49</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">[]</span></h4>
@@ -541,6 +541,12 @@
 								<a href="pmap.html#clone" class="tsd-kind-icon">clone</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="pmap.html#delete" class="tsd-kind-icon">delete</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="pmap.html#deleteall" class="tsd-kind-icon">delete<wbr>All</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="pmap.html#difference" class="tsd-kind-icon">difference</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
@@ -554,12 +560,6 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="pmap.html#keys" class="tsd-kind-icon">keys</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="pmap.html#remove" class="tsd-kind-icon">remove</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="pmap.html#removeall" class="tsd-kind-icon">remove<wbr>All</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="pmap.html#set" class="tsd-kind-icon">set</a>

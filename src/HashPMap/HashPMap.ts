@@ -2,7 +2,17 @@ import { PMap } from '../PMap';
 import { IEntry } from '../IEntry';
 
 /**
- * Can use anything as key, using the provided `hash` function as internal unique identifier.
+ * Can use anything as key, using the provided `hash` function as internal unique identifier, meaning:
+ * 
+ * ```ts
+ * const hash = k => k.id;
+ * const map = new HashPMap<object, string>(hash);
+ * const k = { id: 1 };
+ * map.set(k, 'some value');
+ * map.has(k); // true
+ * map.has({ id: 1 }); // true
+ * map.has({ id: 2 }); // false
+ * ```
  *
  * @template K type of keys
  * @template V type of values 

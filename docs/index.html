@@ -41,13 +41,15 @@
 					<h1>PMap</h1>
 				</a>
 				<p> A TypeScript library providing some Map functionality, which can use anything as key (and not only <code>string</code> or <code>symbol</code> as plain JS Objects).</p>
-				<p> Install with <code>npm i @shaman-apprentice/pack-mule</code>.</p>
+				<p> Install with <code>npm i --save @shaman-apprentice/pack-mule</code>.</p>
 				<a href="#goals-of-this-library" id="goals-of-this-library" style="color: inherit; text-decoration: none;">
 					<h2>Goals of this library</h2>
 				</a>
 				<ul>
+					<li>Academic fun of implementing it</li>
 					<li>A static strong typed interface via TypeScript</li>
-					<li>All operations like <code>get</code> or <code>remove</code> in <strong>O(n)</strong></li>
+					<li><a href="https://shaman-apprentice.github.io/pack-mule/classes/hashpmap.html">HashPMap</a> maps by calculated hash value and not by reference</li>
+					<li>All operations like <code>get</code> or <code>remove</code> in <strong>O(log(n))</strong> (note that a proper implemented HashMap can do it in <em>O(1)</em> - but as I have a small HashMap the overhead would be bigger than this <em>O</em>-reduction)</li>
 				</ul>
 				<a href="#api" id="api" style="color: inherit; text-decoration: none;">
 					<h2>API</h2>

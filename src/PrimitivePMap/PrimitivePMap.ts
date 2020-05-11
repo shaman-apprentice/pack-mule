@@ -3,8 +3,9 @@ import { Primitive } from './Primitive';
 import { IEntry } from '../IEntry';
 
 /**
- * PrimitivePMap is basically a {@link HashPMap},
- * but provides out of the box collision protection for e.g. `1` and `"1"` or `undefined` and `"undefined"`.
+ * `PrimitivePMap` is basically a {@link HashPMap} for Primitives only,
+ * with predefined hash function, which provides out of the box collision protection
+ * for e.g. `1` and `"1"` or `undefined` and `"undefined"`.
  *  
  * @template K type of keys - `K` must extend {@link Primitive}
  * @template V type of values
