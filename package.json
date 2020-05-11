@@ -1,12 +1,13 @@
 {
   "name": "@shaman-apprentice/pack-mule",
-  "version": "0.2.0",
-  "description": "A Map which works with anything as key and some utilities",
+  "version": "0.3.0",
+  "description": "A Map interface with some strong typed implementations which allow anything as keys",
   "keywords": [
     "Map",
     "Objects",
     "Keys",
-    "Typed"
+    "Typed",
+    "TypeScript"
   ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

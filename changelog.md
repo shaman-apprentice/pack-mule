@@ -3,6 +3,11 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased / Upcoming]
 
+## [0.3.0] - 2020.11.05
+### Breaking
+- Transform `PMap` into an abstract class, implemented by `HashPMap`, `PrimitivePMap` and `SymbolPMap`.
+- Rename `.remove` to `.delete` and `.removeAll` to `deleteAll` to be more aligned with in JS inbuilt [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map).
+
 ## [0.2.0] - 2020.05.08
 ### Changed
 - Take all key-value pairs as set, even if the value is `undefined`. This effects:
