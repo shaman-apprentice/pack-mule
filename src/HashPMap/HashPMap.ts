@@ -16,8 +16,7 @@ export class HashPMap<K extends IHashable, V> extends PMap<K, V> {
   }
 
   *[Symbol.iterator]() {
-    for (const entry of Object.values(this._storage))
-      yield entry as IEntry<K, V>;
+    yield* (Object.values(this._storage) as IEntry<K, V>[]);
   }
 
   public has(key: K): boolean {
