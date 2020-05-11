@@ -1,16 +1,17 @@
 import { PMap } from '../PMap';
 import { IEntry } from '../IEntry';
-import { IHashable } from './IHashable';
 
-/**
- * Can use anything as key as long as it implements IHashable:
- * The calculated value from `.hash()` is used internally as unique identifier. 
- */
-export class HashPMap<K extends IHashable, V> extends PMap<K, V> {
+/** Can use anything as key, using the provided `hash` function as internal unique identifer. */
+export class HashPMap<K, V> extends PMap<K, V> {
   private _storage = {};
+  private hash: (key: K) => string;
 
-  constructor(entries?: IEntry<K, V>[]) {
+  /**
+   * @param hash function for mapping keys to unique identifiers. Be aware of overwriting your stored values in case of hash collisions.
+   */
+  constructor(hash: (key: K) => string, entries?: IEntry<K, V>[]) {
     super();
+    this.hash = hash;
     if (entries)
       this.setAll(...entries);
   }
@@ -20,21 +21,29 @@ export class HashPMap<K extends IHashable, V> extends PMap<K, V> {
   }
 
   public has(key: K): boolean {
-    return this._storage[key.hash()] !== undefined
+    return this._storage[this.hash(key)] !== undefined
   }
 
   public get(key: K): V {
-    return this._storage[key.hash()]?.value;
+    return this._storage[this.hash(key)]?.value;
   }
 
   public set(key: K, value: V): V {
-    const internKey = key.hash();
+    const internKey = this.hash(key);
     const oldValue = this._storage[internKey]?.value;
     this._storage[internKey] = { key, value };
     return oldValue;
   }
 
   protected _deleteKey(key: any): void {
-    delete this._storage[key.hash()];
+    delete this._storage[this.hash(key)];
+  }
+
+  /** @overwrite */
+  public clone() {
+    // @ts-ignore
+    const clone = new this.constructor(this.hash);
+    clone.setAll(...this.toList());
+    return clone;
   }
 }
