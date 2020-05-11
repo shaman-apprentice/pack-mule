@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>@shaman-apprentice/pack-mule - v0.2.0</title>
-	<meta name="description" content="Documentation for @shaman-apprentice/pack-mule - v0.2.0">
+	<title>@shaman-apprentice/pack-mule - v0.3.0</title>
+	<meta name="description" content="Documentation for @shaman-apprentice/pack-mule - v0.3.0">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
 </head>
@@ -22,14 +22,14 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="index.html" class="title">@shaman-apprentice/pack-mule - v0.2.0</a>
+					<a href="index.html" class="title">@shaman-apprentice/pack-mule - v0.3.0</a>
 				</div>
 			</div>
 		</div>
 	</div>
 	<div class="tsd-page-title">
 		<div class="container">
-			<h1>@shaman-apprentice/pack-mule - v0.2.0</h1>
+			<h1>@shaman-apprentice/pack-mule - v0.3.0</h1>
 		</div>
 	</div>
 </header>
@@ -40,12 +40,11 @@
 				<a href="#pmap" id="pmap" style="color: inherit; text-decoration: none;">
 					<h1>PMap</h1>
 				</a>
-				<p> A TypeScript class providing some Map functionality, which can use anything as key.</p>
+				<p> A TypeScript library providing some Map functionality, which can use anything as key (and not only <code>string</code> or <code>symbol</code> as plain JS Objects).</p>
 				<p> Install with <code>npm i @shaman-apprentice/pack-mule</code>.</p>
-				<a href="#motivation" id="motivation" style="color: inherit; text-decoration: none;">
-					<h2>Motivation</h2>
+				<a href="#goals-of-this-library" id="goals-of-this-library" style="color: inherit; text-decoration: none;">
+					<h2>Goals of this library</h2>
 				</a>
-				<p>Storing keys and values in two separate lists and mapping them over the index, would be much simpler than the inner implementation of <code>PMap</code>. But when using it, you don&#39;t have to care about the inner implementation 🙈🙉🙊. <code>PMap</code> provides the following two benefits:</p>
 				<ul>
 					<li>A static strong typed interface via TypeScript</li>
 					<li>All operations like <code>get</code> or <code>remove</code> in <strong>O(n)</strong></li>
@@ -53,7 +52,7 @@
 				<a href="#api" id="api" style="color: inherit; text-decoration: none;">
 					<h2>API</h2>
 				</a>
-				<p><a href="https://shaman-apprentice.github.io/pack-mule/classes/pmap.html">Typedoc generated docs</a>.</p>
+				<p><a href="https://shaman-apprentice.github.io/pack-mule/index.html">Typedoc generated docs</a>.</p>
 				<a href="#⚠️-note-for-babel" id="⚠️-note-for-babel" style="color: inherit; text-decoration: none;">
 					<h2>⚠️ Note for babel</h2>
 				</a>
@@ -63,10 +62,22 @@
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 			<nav class="tsd-navigation secondary menu-sticky" style="overflow:unset;">
 				<li class=" tsd-kind-class tsd-has-type-parameter">
+					<a href="classes/hashpmap.html" class="tsd-kind-icon" style="display:inline; padding-left:0;">HashPMap</a>
+				</li>
+				<li class=" tsd-kind-class tsd-has-type-parameter">
 					<a href="classes/pmap.html" class="tsd-kind-icon" style="display:inline; padding-left:0;">PMap</a>
 				</li>
+				<li class=" tsd-kind-class tsd-has-type-parameter">
+					<a href="classes/primitivepmap.html" class="tsd-kind-icon" style="display:inline; padding-left:0;">PrimitivePMap</a>
+				</li>
+				<li class=" tsd-kind-class tsd-has-type-parameter">
+					<a href="classes/symbolpmap.html" class="tsd-kind-icon" style="display:inline; padding-left:0;">SymbolPMap</a>
+				</li>
 				<li class=" tsd-kind-interface tsd-has-type-parameter">
-					<a href="interfaces/entry.html" class="tsd-kind-icon" style="display:inline; padding-left:0;">Entry</a>
+					<a href="interfaces/ientry.html" class="tsd-kind-icon" style="display:inline; padding-left:0;">IEntry</a>
+				</li>
+				<li class=" tsd-kind-type-alias">
+					<a href="globals.html#primitive" class="tsd-kind-icon" style="display:inline; padding-left:0;">Primitive</a>
 				</li>
 			</nav>
 		</div>
@@ -82,6 +93,12 @@
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
 			</ul>
 		</div>
 	</div>

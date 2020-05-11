@@ -11,7 +11,7 @@ import { IEntry } from '../IEntry';
  * map.has({}); // false
  * ```
  * 
- * If you want to utilise the key value-like see {@link HashMap}.
+ * If you want the behavior of the key to be value-like see {@link HashPMap}.
  * 
  * SymbolPMap makes it work internally through adding (and removing in case of removal) a Symbol to the key object.
  * This does not affect the normal behavior of your key like e.g. in `Object.keys(key)`.

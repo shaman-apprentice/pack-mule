@@ -1,7 +1,7 @@
 import { IEntry } from "./IEntry";
 
 /**
- * A generic interface defining the functionality of PMaps.
+ * A generic **abstract** class defining the functionality of PMaps.
  * 
  * @template K type of PMap's keys
  * @template V type of PMap's values

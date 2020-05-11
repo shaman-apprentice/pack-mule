@@ -2,7 +2,13 @@ import { PMap } from '../PMap';
 import { Primitive } from './Primitive';
 import { IEntry } from '../IEntry';
 
-/** Can use Primitives := undefined | null | string | number | symbol as keys */
+/**
+ * PrimitivePMap is basically a {@link HashPMap},
+ * but provides out of the box collision protection for e.g. `1` and `"1"` or `undefined` and `"undefined"`.
+ *  
+ * @template K type of keys - `K` must extend {@link Primitive}
+ * @template V type of values
+ */
 export class PrimitivePMap<K extends Primitive, V> extends PMap<K, V> {
   private _storage = {};
 

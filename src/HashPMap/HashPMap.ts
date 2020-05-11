@@ -1,7 +1,12 @@
 import { PMap } from '../PMap';
 import { IEntry } from '../IEntry';
 
-/** Can use anything as key, using the provided `hash` function as internal unique identifer. */
+/**
+ * Can use anything as key, using the provided `hash` function as internal unique identifier.
+ *
+ * @template K type of keys
+ * @template V type of values 
+ */
 export class HashPMap<K, V> extends PMap<K, V> {
   private _storage = {};
   private hash: (key: K) => string;
@@ -39,7 +44,6 @@ export class HashPMap<K, V> extends PMap<K, V> {
     delete this._storage[this.hash(key)];
   }
 
-  /** @overwrite */
   public clone() {
     // @ts-ignore
     const clone = new this.constructor(this.hash);
