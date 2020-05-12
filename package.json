@@ -1,16 +1,14 @@
 {
   "name": "@shaman-apprentice/pack-mule",
-  "version": "0.3.0",
-  "description": "A Map interface with some strong typed implementations which allow anything as keys",
+  "version": "0.4.0",
+  "description": "A Map storing key-value pairs not by key object's reference (what native `Map` does), but by a user provided key function.",
   "keywords": [
     "Map",
-    "Objects",
-    "Keys",
-    "Typed",
+    "Reference by value",
     "TypeScript"
   ],
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/PMap.js",
+  "types": "dist/PMap.d.ts",
   "scripts": {
     "test": "jest --config config/jest.config.js",
     "build": "rimraf dist && tsc -p config/tsconfig.json",

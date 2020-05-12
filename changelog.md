@@ -3,6 +3,11 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased / Upcoming]
 
+## [0.4.0] - 2020.12.05
+### Breaking
+- Provide only `PMap`, which uses internally a native `Map` and a provided *transform function*, which maps a key to a string.
+
+
 ## [0.3.0] - 2020.11.05
 ### Breaking
 - Transform `PMap` into an abstract class, implemented by `HashPMap`, `PrimitivePMap` and `SymbolPMap`.

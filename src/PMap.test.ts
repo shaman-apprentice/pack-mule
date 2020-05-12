@@ -1,140 +1,72 @@
-import { SymbolPMap } from './SymbolPMap/SymbolPMap';
 import { PMap } from './PMap';
-import { PrimitivePMap } from './PrimitivePMap/PrimitivePMap';
 
-describe('`clone()`', () => {
-  it('derives the correct Child-Class type when cloning', () => {
-    const map = new SymbolPMap<object, number>();
-    const clone: SymbolPMap<object, number> = map.clone();
-    expect(clone).toBeInstanceOf(SymbolPMap);
-  
-    // todo: check for real negative testing
-    // The following two is correctly not allowed
-    // const clone2: SymbolPMap<Function, number> = map.clone();
-    // const clone3: PMap<object, string> = map.clone();
-  });
+class Posi {
+  constructor(public x: number, public y: number) {}
+  static toString(p: Posi) { return `${p.x}-${p.y}`; }
+}
 
-  it('can assign a clone to its base class', () => {
-    const map = new SymbolPMap<object, number>();
-    const clone: PMap<object, number> = map.clone();
-    expect(clone).toBeInstanceOf(PMap);
-  });
-
-  it('does a shallow clone', () => {
-    const origin = new SymbolPMap<object, string>();
-    const k = {};
-    const v = 'some v'
-    origin.set(k, v);
-    const clone = origin.clone();
-
-    expect(clone.size).toBe(1);
-    expect(clone.get(k)).toBe(v);
-
-    clone.set({}, 'another value');
-    expect(clone.size).toBe(2);
-    expect(origin.size).toBe(1);
-
-    clone.set(k, 'not v');
-    expect(clone.get(k)).toBe('not v');
-    expect(origin.get(k)).toBe(v);
-
-    origin.delete(k);
-    expect(clone.has(k)).toBe(true);
-  });
+let map;
+beforeEach(() => {
+  map = new PMap(Posi.toString);
 });
 
-describe('utility functions of PMap', () => {
-  it('calculates `.keys()` correctly', () => {
-    const map = new PrimitivePMap();
-    map.set(1, '1');
-    map.set(2, '2');
-    const keys = map.keys();
-    
-    expect(keys.length).toBe(2);
-    expect(keys).toContain(1);
-    expect(keys).toContain(2);
-  });
-
-  it('calculates `.values()` correctly', () => {
-    const map = new PrimitivePMap();
-    map.set(1, '1');
-    map.set(2, '2');
-    const values = map.values();
-    
-    expect(values.length).toBe(2);
-    expect(values).toContain('1');
-    expect(values).toContain('2');
-  });
-
-  it('can delete all entries', () => {
-    const map = new PrimitivePMap();
-    map.set(1, '1');
-    map.set(2, '2');
-
-    map.deleteAll(1, 2);
-    expect(map.size).toBe(0);
-  });
-
-  it('can set all entries', () => {
-    const map = new PrimitivePMap();
-    map.setAll({key: 1, value: '1'}, {key: 2, value: '2'});
-
-    expect(map.size).toBe(2);
-    expect(map.get(1)).toBe('1');
-    expect(map.get(2)).toBe('2');
-  });
+it('sets `Symbol.toStringTag`', () => {
+  expect(String(map)).toBe('[object PMap]');
 });
 
-describe('union', () => {
-  it('sets all entries', () => {
-    const m1 = new PrimitivePMap();
-    m1.set(1, '1');
-    const m2 = new PrimitivePMap();
-    m2.set(2, '2');
-    
-    const m3 = m1.union(m2);
-    expect(m3.size).toBe(2);
-    expect(m3.get(1)).toBe('1');
-    expect(m3.get(2)).toBe('2');
-  });
-
-  it('handles default `mergeF` correctly', () => {
-    const m1 = new PrimitivePMap([{key: 1, value: 'm1-1'}]);
-    const m2 = new PrimitivePMap([{key: 1, value: 'm2-1'}]);
-
-    const m3 = m1.union(m2);
-    expect(m3.size).toBe(1);
-    expect(m3.get(1)).toBe('m1-1');
-  });
-
-  it('uses given `mergeF`', () => {
-    const m1 = new PrimitivePMap([{key: 1, value: 'm1-1'}]);
-    const m2 = new PrimitivePMap([{key: 1, value: 'm2-1'}]);
-    const mergeF = jest.fn((key, v1, v2) => '(m2+m1)-1');
-
-    const m3 = m1.union(m2, mergeF);
-    expect(m3.size).toBe(1);
-    expect(mergeF).toHaveBeenCalledTimes(1);
-    expect(mergeF).toHaveBeenCalledWith(1, 'm1-1', 'm2-1');
-    expect(m3.get(1)).toBe('(m2+m1)-1');
-  });
+it('has the key after setting it', () => {
+  const k = new Posi(1, 2);
+  map.set(k, 'some-value');
+  expect(map.has(k)).toBe(true);
 });
 
-describe('intersectionKeys', () => {
-  it('intersectionKeys works', () => {
-    const m1 = new PrimitivePMap<number, number>([{key: 1, value: 1}, {key: 2, value: 2}]);
-    const m2 = new PrimitivePMap<number, number>([{key: 1, value: 1}, {key: 3, value: 3}]);
-  
-    expect(m1.intersectionKeys(m2)).toEqual([1]);
-  });
+it('can get the key after setting it', () => {
+  const k = new Posi(1, 2);
+  map.set(k, 'some-value');
+  expect(map.get(k)).toBe('some-value');
 });
 
-describe('difference', () => {
-  it('difference works', () => {
-    const m1 = new PrimitivePMap<number, number>([{key: 1, value: 1}, {key: 2, value: 2}]);
-    const m2 = new PrimitivePMap<number, number>([{key: 1, value: 1}, {key: 3, value: 3}]);
-  
-    const difference = m1.difference(m2);
-    expect(difference.toList()).toEqual([{key: 2, value: 2}]);
-  });
+it('overwrites a key based on the given key transform function', () => {
+  const k = new Posi(1, 2);
+  map.set(k, 'some-value');
+  map.set(new Posi(1, 2), 'other-value');
+  expect(map.get(k)).toBe('other-value');
+  expect(map.size).toBe(1);
+});
+
+it('returns `undefined` for a non present key', () => {
+  expect(map.get(new Posi(1, 2))).toBe(undefined);
+});
+
+it('can iterate over `.entries()`', () => {
+  const k1 = new Posi(1, 2);
+  const k2 = new Posi(3, 4);
+  map.set(k1, 'fst-value');
+  map.set(k2, 'snd-value');
+  const cb = jest.fn();
+
+  for (const [k, v] of map.entries())
+    cb(k, v);
+
+  expect(cb).toHaveBeenCalledTimes(2);
+  expect(cb).toHaveBeenCalledWith(k1, 'fst-value');
+  expect(cb).toHaveBeenCalledWith(k2, 'snd-value');
+});
+
+it('can clone', () => {
+  map.set(new Posi(1, 2), 'some-value');
+  const m2 = map.clone();
+
+  expect(m2.size).toBe(1);
+  expect(m2.get(new Posi(1, 2))).toBe('some-value');
+});
+
+it('does a shadow clone', () => {
+  const k = new Posi(1, 2);
+  map.set(k, 'some-value');
+  const m2 = map.clone();
+
+  m2.delete(k);
+  expect(m2.has(k)).toBe(false);
+  expect(map.has(k)).toBe(true);
 });

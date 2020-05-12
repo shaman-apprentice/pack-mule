@@ -1,90 +1,105 @@
-import { IEntry } from "./IEntry";
+import { IEntry } from './IEntry';
 
 /**
- * A generic **abstract** class defining the functionality of PMaps.
+ * **PMap** implements builtin [Map interface](https://github.com/microsoft/TypeScript/blob/master/lib/lib.es2015.collection.d.ts).
+ * PMap transforms a key into a string and stores the original key-value pair internally with the transformed key into a native Map.
  * 
- * @template K type of PMap's keys
- * @template V type of PMap's values
+ * Example usage:
+ * ```ts
+ * class Position {
+ *   constructor(public x: int, public y: int) {}
+ *   static toString(p: Posi) { return `${p.x}-${p.y}`; }
+ * }
+ * 
+ * const map = new PMap<Position, string>(P.toString);
+ * const myKey = new Position(1, 2);
+ * map.set(myKey, 'here is a treasure hidden');
+ * console.log(map.get(myKey)); // 'here is a treasure hidden'
+ * console.log(map.get(new Position(1, 2))); // 'here is a treasure hidden'
+ * ``` 
+ * 
+ * As `PMap` uses internally a native `Map`, sublinear average access is guaranteed ([ECMAScript 2015](http://www.ecma-international.org/ecma-262/6.0/index.html#sec-map-objects)) -
+ * but it should be a safe guess, that all modern JS engines provide highly optimized `Map`s with *O(1)* average access.
  */
-export abstract class PMap<K, V> implements Iterable<IEntry<K, V>> {
-  
-  abstract [Symbol.iterator]();
-  
-  public abstract has(key: K): boolean;
-  
-  public abstract get(key: K): V;
-  
-  /** Returns the previous under `key` stored value. */
-  public abstract set(key: K, value: V): V;
-  
-  /** Called within `this.delete` */
-  protected abstract _deleteKey(key: K): void;
-  
-  /** Returns the amount of key-value pairs stored. */
-  public get size(): number {
-    return this.toList().length;
+export class PMap<K, V> implements Map<K, V> {
+  private _transformKey: (key: K) => string;
+  private _map: Map<string, IEntry<K, V>>;
+
+  /**
+   * @param transformKey its result is used as unique identifier for internal storage
+   * @param entries optional list of initial entries
+   */
+  constructor(transformKey: (key: K) => string, entries?: [K, V][]) {
+    this._transformKey = transformKey;
+    this._map = new Map<string, IEntry<K, V>>();
+    if (entries)
+      this.setAll(...entries);
   }
 
-  /** Returns the previous stored value. */
-  public delete(key: K): V {
-    const oldValue = this.get(key);
-    this._deleteKey(key);
-    return oldValue;
+  set(key: K, value: V): this {
+    this._map.set(this._transformKey(key), {key, value});
+    return this;
   }
 
-  /** Returns the previous under `entry.key` stored values. */
-  public setAll(...entries: IEntry<K, V>[]): V[] {
-    return entries.map(e => this.set(e.key, e.value));
+  has(key: K): boolean {
+    return this._map.has(this._transformKey(key));
   }
 
-  /** Returns the previous stored values. */
-  public deleteAll(...keys: K[]): V[] {
-    return keys.map(k => this.delete(k));
+  get(key: K): V {
+    return this._map.get(this._transformKey(key))?.value;
   }
 
-  public keys(): K[] {
-    return this.toList().map(e => e.key);
+  clear(): void {
+    this._map = new Map<string, IEntry<K, V>>();
   }
 
-  public values(): V[] {
-    return this.toList().map(e => e.value);
+  delete(key: K): boolean {
+    return this._map.delete(this._transformKey(key));
   }
 
-  public toList(): IEntry<K, V>[] {
-    return Array.from<IEntry<K, V>>(this);
+  forEach(callbackfn: (value: V, key: K, map: PMap<K, V>) => void, thisArg?: any): void {
+    this._map.forEach(entry => callbackfn(entry.value, entry.key, this));
+  }
+
+  setAll(...entries: [K, V][]): this {
+    entries.forEach(([key, value]) => this.set(key, value));
+    return this;
+  }
+
+  deleteAll(...keys: K[]): boolean[] {
+    return keys.map(key => this.delete(key));
+  }
+
+  /** I have no clue, why this is part of the Map interface, as [Symbol.iterator]() does exactly the same. */
+  *entries(): IterableIterator<[K, V]> {
+    yield* this[Symbol.iterator]();
+  }
+
+  *keys(): IterableIterator<K> {
+    for (const [_, entry] of this._map)
+      yield entry.key;
+  }
+  
+  *values(): IterableIterator<V> {
+    for (const [_, entry] of this._map)
+      yield entry.value;
+  }
+
+  get [Symbol.toStringTag]() {
+    return 'PMap';
+  }
+
+  get size() {
+    return this._map.size;
+  }
+
+  *[Symbol.iterator](): IterableIterator<[K, V]> {
+    for (const [_, entry] of this._map)
+      yield [entry.key, entry.value];
   }
 
   /** Returns a shallow clone. */
-  public clone(): this {
-    // @ts-ignore
-    const clone = new this.constructor();
-    clone.setAll(...this.toList());
-    return clone;
-  }
-
-  /**
-   * Returns a shallow clone containing all key-value pairs of `this` and `other`.
-   * @param mergeF In case of both PMaps having the same key, this function returns the new Value. `v1` is from `this` and `v2` is from `other`
-   */
-  public union(other: PMap<K, any>, mergeF: (key: K, v1: V, v2: any) => any = (k,v1,v2) => v1): PMap<K, any> {
-    const result = this.clone();
-
-    for (let {key, value} of other)
-      result.set(key, this.has(key) ? mergeF(key, this.get(key), value) : value)
-
-    return result;
-  }
-
-  public intersectionKeys(other: PMap<K, any>): K[] {
-    return this.toList()
-      .filter(entry => other.has(entry.key))
-      .map(entry => entry.key);
-  }
-
-  /** Returns a shallow clone without the keys of `other`. */
-  public difference(other: PMap<K, any>): PMap<K, V> {
-    const result = this.clone();
-    result.deleteAll(...other.keys());
-    return result;
+  clone(): PMap<K, V> {
+    return new PMap<K, V>(this._transformKey, [...this]);
   }
 }
