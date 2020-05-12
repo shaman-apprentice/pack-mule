@@ -20,6 +20,9 @@ import { IEntry } from './IEntry';
  * 
  * As `PMap` uses internally a native `Map`, sublinear average access is guaranteed ([ECMAScript 2015](http://www.ecma-international.org/ecma-262/6.0/index.html#sec-map-objects)) -
  * but it should be a safe guess, that all modern JS engines provide highly optimized `Map`s with *O(1)* average access.
+ * 
+ * @template K type of PMap's keys
+ * @template V type of PMap's values
  */
 export class PMap<K, V> implements Map<K, V> {
   private _transformKey: (key: K) => string;

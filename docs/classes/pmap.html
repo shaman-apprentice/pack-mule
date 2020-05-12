@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>PMap | @shaman-apprentice/pack-mule - v0.3.0</title>
-	<meta name="description" content="Documentation for @shaman-apprentice/pack-mule - v0.3.0">
+	<title>PMap | @shaman-apprentice/pack-mule - v0.4.0</title>
+	<meta name="description" content="Documentation for @shaman-apprentice/pack-mule - v0.4.0">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
 </head>
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">@shaman-apprentice/pack-mule - v0.3.0</a>
+					<a href="../index.html" class="title">@shaman-apprentice/pack-mule - v0.4.0</a>
 				</div>
 			</div>
 		</div>
@@ -39,8 +39,22 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>A generic <strong>abstract</strong> class defining the functionality of PMaps.</p>
+						<p><strong>PMap</strong> implements builtin <a href="https://github.com/microsoft/TypeScript/blob/master/lib/lib.es2015.collection.d.ts">Map interface</a>.
+						PMap transforms a key into a string and stores the original key-value pair internally with the transformed key into a native Map.</p>
 					</div>
+					<p>Example usage:</p>
+					<pre><code class="language-ts"><span class="hljs-keyword">class</span> Position {
+  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> x: int, <span class="hljs-keyword">public</span> y: int</span>) {}
+  <span class="hljs-keyword">static</span> toString(p: Posi) { <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${p.x}</span>-<span class="hljs-subst">${p.y}</span>`</span>; }
+}
+
+<span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> PMap&lt;Position, <span class="hljs-built_in">string</span>&gt;(P.toString);
+<span class="hljs-keyword">const</span> myKey = <span class="hljs-keyword">new</span> Position(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>);
+map.set(myKey, <span class="hljs-string">'here is a treasure hidden'</span>);
+<span class="hljs-built_in">console</span>.log(map.get(myKey)); <span class="hljs-comment">// 'here is a treasure hidden'</span>
+<span class="hljs-built_in">console</span>.log(map.get(<span class="hljs-keyword">new</span> Position(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>))); <span class="hljs-comment">// 'here is a treasure hidden'</span></code></pre>
+					<p>As <code>PMap</code> uses internally a native <code>Map</code>, sublinear average access is guaranteed (<a href="http://www.ecma-international.org/ecma-262/6.0/index.html#sec-map-objects">ECMAScript 2015</a>) -
+					but it should be a safe guess, that all modern JS engines provide highly optimized <code>Map</code>s with <em>O(1)</em> average access.</p>
 				</div>
 			</section>
 			<div class="row">
@@ -63,7 +77,7 @@
 					<section class="tsd-panel" style="height:100%; box-sizing:border-box;">
 						<h3>Implements</h3>
 						<ul class="tsd-hierarchy">
-							<li><span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ientry.html" class="tsd-signature-type">IEntry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+							<li><span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">&gt;</span></li>
 						</ul>
 					</section>
 				</div>
@@ -73,8 +87,15 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
+							<h3>Constructors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="pmap.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="pmap.html#_symbol_tostringtag_" class="tsd-kind-icon">[<wbr>Symbol.to<wbr>String<wbr>Tag]</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="pmap.html#size" class="tsd-kind-icon">size</a></li>
 							</ul>
 						</section>
@@ -82,19 +103,17 @@
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="pmap.html#_symbol_iterator_" class="tsd-kind-icon">[<wbr>Symbol.iterator]</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="pmap.html#_deletekey" class="tsd-kind-icon">_delete<wbr>Key</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="pmap.html#clear" class="tsd-kind-icon">clear</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="pmap.html#clone" class="tsd-kind-icon">clone</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="pmap.html#delete" class="tsd-kind-icon">delete</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="pmap.html#deleteall" class="tsd-kind-icon">delete<wbr>All</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="pmap.html#difference" class="tsd-kind-icon">difference</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="pmap.html#entries" class="tsd-kind-icon">entries</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="pmap.html#foreach" class="tsd-kind-icon">for<wbr>Each</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="pmap.html#get" class="tsd-kind-icon">get</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="pmap.html#has" class="tsd-kind-icon">has</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="pmap.html#intersectionkeys" class="tsd-kind-icon">intersection<wbr>Keys</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="pmap.html#keys" class="tsd-kind-icon">keys</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="pmap.html#set" class="tsd-kind-icon">set</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="pmap.html#setall" class="tsd-kind-icon">set<wbr>All</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="pmap.html#tolist" class="tsd-kind-icon">to<wbr>List</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="pmap.html#union" class="tsd-kind-icon">union</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="pmap.html#values" class="tsd-kind-icon">values</a></li>
 							</ul>
 						</section>
@@ -102,7 +121,83 @@
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Constructors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3>constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">new PMap<span class="tsd-signature-symbol">(</span>transformKey<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">string</span>, entries<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="pmap.html" class="tsd-signature-type">PMap</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/0afb129/src/PMap.ts#L29">PMap.ts:29</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>transformKey: <span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>its result is used as unique identifier for internal storage</p>
+										</div>
+									</div>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>key: <span class="tsd-signature-type">K</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> entries: <span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>optional list of initial entries</p>
+										</div>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="pmap.html" class="tsd-signature-type">PMap</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Accessors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="_symbol_tostringtag_" class="tsd-anchor"></a>
+					<h3>[<wbr>Symbol.to<wbr>String<wbr>Tag]</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> [Symbol.toStringTag]<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/0afb129/src/PMap.ts#L91">PMap.ts:91</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
 					<a name="size" class="tsd-anchor"></a>
 					<h3>size</h3>
@@ -113,14 +208,9 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/14adce5/src/PMap.ts#L24">PMap.ts:24</a></li>
+									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/0afb129/src/PMap.ts#L95">PMap.ts:95</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Returns the amount of key-value pairs stored.</p>
-								</div>
-							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
 						</li>
 					</ul>
@@ -130,45 +220,34 @@
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="_symbol_iterator_" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagAbstract">Abstract</span> [<wbr>Symbol.iterator]</h3>
+					<h3>[<wbr>Symbol.iterator]</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">[<wbr>Symbol.iterator]<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+						<li class="tsd-signature tsd-kind-icon">[<wbr>Symbol.iterator]<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IterableIterator</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/14adce5/src/PMap.ts#L11">PMap.ts:11</a></li>
+									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/0afb129/src/PMap.ts#L99">PMap.ts:99</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">IterableIterator</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
-					<a name="_deletekey" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagProtected">Protected</span> <span class="tsd-flag ts-flagAbstract">Abstract</span> _delete<wbr>Key</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
-						<li class="tsd-signature tsd-kind-icon">_delete<wbr>Key<span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="clear" class="tsd-anchor"></a>
+					<h3>clear</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">clear<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/14adce5/src/PMap.ts#L21">PMap.ts:21</a></li>
+									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/0afb129/src/PMap.ts#L55">PMap.ts:55</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Called within <code>this.delete</code></p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>key: <span class="tsd-signature-type">K</span></h5>
-								</li>
-							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -177,13 +256,13 @@
 					<a name="clone" class="tsd-anchor"></a>
 					<h3>clone</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">clone<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+						<li class="tsd-signature tsd-kind-icon">clone<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="pmap.html" class="tsd-signature-type">PMap</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/14adce5/src/PMap.ts#L58">PMap.ts:58</a></li>
+									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/0afb129/src/PMap.ts#L105">PMap.ts:105</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -191,7 +270,7 @@
 									<p>Returns a shallow clone.</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="pmap.html" class="tsd-signature-type">PMap</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -199,27 +278,22 @@
 					<a name="delete" class="tsd-anchor"></a>
 					<h3>delete</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">delete<span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">V</span></li>
+						<li class="tsd-signature tsd-kind-icon">delete<span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/14adce5/src/PMap.ts#L29">PMap.ts:29</a></li>
+									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/0afb129/src/PMap.ts#L59">PMap.ts:59</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Returns the previous stored value.</p>
-								</div>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>key: <span class="tsd-signature-type">K</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">V</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -227,61 +301,100 @@
 					<a name="deleteall" class="tsd-anchor"></a>
 					<h3>delete<wbr>All</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">delete<wbr>All<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>keys<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">[]</span></li>
+						<li class="tsd-signature tsd-kind-icon">delete<wbr>All<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>keys<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">[]</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/14adce5/src/PMap.ts#L41">PMap.ts:41</a></li>
+									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/0afb129/src/PMap.ts#L72">PMap.ts:72</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Returns the previous stored values.</p>
-								</div>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>keys: <span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">[]</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">[]</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">[]</span></h4>
 						</li>
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="difference" class="tsd-anchor"></a>
-					<h3>difference</h3>
+					<a name="entries" class="tsd-anchor"></a>
+					<h3>entries</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">difference<span class="tsd-signature-symbol">(</span>other<span class="tsd-signature-symbol">: </span><a href="pmap.html" class="tsd-signature-type">PMap</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="pmap.html" class="tsd-signature-type">PMap</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">entries<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IterableIterator</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/14adce5/src/PMap.ts#L85">PMap.ts:85</a></li>
+									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/0afb129/src/PMap.ts#L77">PMap.ts:77</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Returns a shallow clone without the keys of <code>other</code>.</p>
+									<p>I have no clue, why this is part of the Map interface, as <a href="">Symbol.iterator</a> does exactly the same.</p>
 								</div>
 							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">IterableIterator</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="foreach" class="tsd-anchor"></a>
+					<h3>for<wbr>Each</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">for<wbr>Each<span class="tsd-signature-symbol">(</span>callbackfn<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">V</span>, key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span>, map<span class="tsd-signature-symbol">: </span><a href="pmap.html" class="tsd-signature-type">PMap</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span>, thisArg<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/0afb129/src/PMap.ts#L63">PMap.ts:63</a></li>
+								</ul>
+							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>other: <a href="pmap.html" class="tsd-signature-type">PMap</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>callbackfn: <span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">V</span>, key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span>, map<span class="tsd-signature-symbol">: </span><a href="pmap.html" class="tsd-signature-type">PMap</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">V</span>, key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span>, map<span class="tsd-signature-symbol">: </span><a href="pmap.html" class="tsd-signature-type">PMap</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>value: <span class="tsd-signature-type">V</span></h5>
+														</li>
+														<li>
+															<h5>key: <span class="tsd-signature-type">K</span></h5>
+														</li>
+														<li>
+															<h5>map: <a href="pmap.html" class="tsd-signature-type">PMap</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">&gt;</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> thisArg: <span class="tsd-signature-type">any</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="pmap.html" class="tsd-signature-type">PMap</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="get" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagAbstract">Abstract</span> get</h3>
+					<h3>get</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
 						<li class="tsd-signature tsd-kind-icon">get<span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">V</span></li>
 					</ul>
@@ -289,7 +402,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/14adce5/src/PMap.ts#L15">PMap.ts:15</a></li>
+									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/0afb129/src/PMap.ts#L51">PMap.ts:51</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -304,7 +417,7 @@
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="has" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagAbstract">Abstract</span> has</h3>
+					<h3>has</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
 						<li class="tsd-signature tsd-kind-icon">has<span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
@@ -312,7 +425,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/14adce5/src/PMap.ts#L13">PMap.ts:13</a></li>
+									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/0afb129/src/PMap.ts#L47">PMap.ts:47</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -326,63 +439,35 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="intersectionkeys" class="tsd-anchor"></a>
-					<h3>intersection<wbr>Keys</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">intersection<wbr>Keys<span class="tsd-signature-symbol">(</span>other<span class="tsd-signature-symbol">: </span><a href="pmap.html" class="tsd-signature-type">PMap</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">[]</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/14adce5/src/PMap.ts#L78">PMap.ts:78</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>other: <a href="pmap.html" class="tsd-signature-type">PMap</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">[]</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="keys" class="tsd-anchor"></a>
 					<h3>keys</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">keys<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">[]</span></li>
+						<li class="tsd-signature tsd-kind-icon">keys<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IterableIterator</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/14adce5/src/PMap.ts#L45">PMap.ts:45</a></li>
+									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/0afb129/src/PMap.ts#L81">PMap.ts:81</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">[]</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">IterableIterator</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="set" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagAbstract">Abstract</span> set</h3>
+					<h3>set</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">set<span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">V</span></li>
+						<li class="tsd-signature tsd-kind-icon">set<span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/14adce5/src/PMap.ts#L18">PMap.ts:18</a></li>
+									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/0afb129/src/PMap.ts#L42">PMap.ts:42</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Returns the previous under <code>key</code> stored value.</p>
-								</div>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -392,7 +477,7 @@
 									<h5>value: <span class="tsd-signature-type">V</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">V</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -400,102 +485,22 @@
 					<a name="setall" class="tsd-anchor"></a>
 					<h3>set<wbr>All</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">set<wbr>All<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>entries<span class="tsd-signature-symbol">: </span><a href="../interfaces/ientry.html" class="tsd-signature-type">IEntry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">[]</span></li>
+						<li class="tsd-signature tsd-kind-icon">set<wbr>All<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>entries<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/14adce5/src/PMap.ts#L36">PMap.ts:36</a></li>
+									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/0afb129/src/PMap.ts#L67">PMap.ts:67</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Returns the previous under <code>entry.key</code> stored values.</p>
-								</div>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>entries: <a href="../interfaces/ientry.html" class="tsd-signature-type">IEntry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></h5>
+									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>entries: <span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">[]</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">[]</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="tolist" class="tsd-anchor"></a>
-					<h3>to<wbr>List</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">to<wbr>List<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/ientry.html" class="tsd-signature-type">IEntry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/14adce5/src/PMap.ts#L53">PMap.ts:53</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="../interfaces/ientry.html" class="tsd-signature-type">IEntry</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="union" class="tsd-anchor"></a>
-					<h3>union</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">union<span class="tsd-signature-symbol">(</span>other<span class="tsd-signature-symbol">: </span><a href="pmap.html" class="tsd-signature-type">PMap</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span>, mergeF<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span>, v1<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">V</span>, v2<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="pmap.html" class="tsd-signature-type">PMap</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/14adce5/src/PMap.ts#L69">PMap.ts:69</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Returns a shallow clone containing all key-value pairs of <code>this</code> and <code>other</code>.</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>other: <a href="pmap.html" class="tsd-signature-type">PMap</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> mergeF: <span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span>, v1<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">V</span>, v2<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = (k,v1,v2) &#x3D;&gt; v1</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>In case of both PMaps having the same key, this function returns the new Value. <code>v1</code> is from <code>this</code> and <code>v2</code> is from <code>other</code></p>
-									</div>
-									<ul class="tsd-parameters">
-										<li class="tsd-parameter-signature">
-											<ul class="tsd-signatures tsd-kind-type-literal">
-												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span>, v1<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">V</span>, v2<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
-											</ul>
-											<ul class="tsd-descriptions">
-												<li class="tsd-description">
-													<h4 class="tsd-parameters-title">Parameters</h4>
-													<ul class="tsd-parameters">
-														<li>
-															<h5>key: <span class="tsd-signature-type">K</span></h5>
-														</li>
-														<li>
-															<h5>v1: <span class="tsd-signature-type">V</span></h5>
-														</li>
-														<li>
-															<h5>v2: <span class="tsd-signature-type">any</span></h5>
-														</li>
-													</ul>
-													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
-												</li>
-											</ul>
-										</li>
-									</ul>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="pmap.html" class="tsd-signature-type">PMap</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -503,16 +508,16 @@
 					<a name="values" class="tsd-anchor"></a>
 					<h3>values</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">values<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">[]</span></li>
+						<li class="tsd-signature tsd-kind-icon">values<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IterableIterator</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/14adce5/src/PMap.ts#L49">PMap.ts:49</a></li>
+									<li>Defined in <a href="https://github.com/shaman-apprentice/pack-mule/blob/0afb129/src/PMap.ts#L86">PMap.ts:86</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">[]</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">IterableIterator</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -520,22 +525,25 @@
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 			<nav class="tsd-navigation secondary menu-sticky" style="overflow:unset;">
-				<li class=" tsd-kind-class tsd-has-type-parameter">
-					<a href="hashpmap.html" class="tsd-kind-icon" style="display:inline; padding-left:0;">HashPMap</a>
-				</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class tsd-has-type-parameter">
 						<a href="pmap.html" class="tsd-kind-icon" style="display:inline; padding-left:0;">PMap</a>
 						<ul>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class">
+								<a href="pmap.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="pmap.html#_symbol_tostringtag_" class="tsd-kind-icon">[<wbr>Symbol.to<wbr>String<wbr>Tag]</a>
+							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="pmap.html#size" class="tsd-kind-icon">size</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="pmap.html#_symbol_iterator_" class="tsd-kind-icon">[<wbr>Symbol.iterator]</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
-								<a href="pmap.html#_deletekey" class="tsd-kind-icon">_delete<wbr>Key</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="pmap.html#clear" class="tsd-kind-icon">clear</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="pmap.html#clone" class="tsd-kind-icon">clone</a>
@@ -547,16 +555,16 @@
 								<a href="pmap.html#deleteall" class="tsd-kind-icon">delete<wbr>All</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="pmap.html#difference" class="tsd-kind-icon">difference</a>
+								<a href="pmap.html#entries" class="tsd-kind-icon">entries</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="pmap.html#foreach" class="tsd-kind-icon">for<wbr>Each</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="pmap.html#get" class="tsd-kind-icon">get</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="pmap.html#has" class="tsd-kind-icon">has</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="pmap.html#intersectionkeys" class="tsd-kind-icon">intersection<wbr>Keys</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="pmap.html#keys" class="tsd-kind-icon">keys</a>
@@ -568,29 +576,14 @@
 								<a href="pmap.html#setall" class="tsd-kind-icon">set<wbr>All</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="pmap.html#tolist" class="tsd-kind-icon">to<wbr>List</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="pmap.html#union" class="tsd-kind-icon">union</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="pmap.html#values" class="tsd-kind-icon">values</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-class tsd-has-type-parameter">
-						<a href="primitivepmap.html" class="tsd-kind-icon" style="display:inline; padding-left:0;">PrimitivePMap</a>
-					</li>
-					<li class=" tsd-kind-class tsd-has-type-parameter">
-						<a href="symbolpmap.html" class="tsd-kind-icon" style="display:inline; padding-left:0;">SymbolPMap</a>
-					</li>
 					<li class=" tsd-kind-interface tsd-has-type-parameter">
 						<a href="../interfaces/ientry.html" class="tsd-kind-icon" style="display:inline; padding-left:0;">IEntry</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="../globals.html#primitive" class="tsd-kind-icon" style="display:inline; padding-left:0;">Primitive</a>
 					</li>
 			</nav>
 		</div>
@@ -606,12 +599,6 @@
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
 			</ul>
 		</div>
 	</div>
